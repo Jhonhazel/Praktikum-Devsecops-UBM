@@ -4,18 +4,6 @@ const _ = require('lodash');
 const config = require('./config');
 const { createDb, verifyPassword, allBound } = require('./db');
 
-if (from !== req.user.username) {
-  return res.status(403).json({
-    error: 'Tidak diizinkan mentransfer dari akun lain',
-  });
-}
-
-if (!Number.isInteger(amount) || amount <= 0) {
-  return res.status(400).json({
-    error: 'Nominal transfer tidak valid',
-  });
-}
-
 function escapeHtml(value) {
   return String(value)
     .replace(/&/g, '&amp;')
@@ -138,7 +126,7 @@ async function createApp() {
 
   // Transfer uang antar pengguna
 
-app.post('/api/transfer', requireAuth, (req, res) => {
+  app.post('/api/transfer', requireAuth, (req, res) => {
     const { from, to, amount } = req.body;
 
     if (from !== req.user.username) {
