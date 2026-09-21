@@ -64,6 +64,10 @@ async function createApp() {
       rows.length === 0 ||
       !verifyPassword(String(password), rows[0].password_hash)
     ) {
+      console.warn(
+        `[SECURITY] LOGIN_FAILED timestamp=${new Date().toISOString()} username=${username} ip=${req.ip}`
+      );
+    
       return res.status(401).json({
         error: 'Username atau password salah',
       });
