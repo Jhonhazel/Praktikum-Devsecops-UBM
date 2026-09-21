@@ -106,4 +106,23 @@ jobs:
 
     steps:
       - run: |
-          echo "Semua security gate lolos. Deploy ke staging (simulasi)."
+          echo "Semua security gate lolos."
+          echo "Deploy ke staging (simulasi)."
+
+  # >>> BONUS -- Continuous Delivery ke Production
+  deploy-production:
+    name: Deploy ke Production (simulasi)
+
+    needs:
+      - deploy
+
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    environment: production
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: |
+          echo "Approval production diterima."
+          echo "Deploy ke production (simulasi)."
