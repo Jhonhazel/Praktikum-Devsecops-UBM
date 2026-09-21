@@ -1,5 +1,9 @@
 const { test, before, after } = require('node:test');
 const assert = require('node:assert');
+
+process.env.JWT_SECRET = "test-jwt-secret"
+process.env.PAYMENT_GATEAWAY_API_KEY = "test-payment-key"
+
 const { createApp } = require('../src/app');
 
 let server;
