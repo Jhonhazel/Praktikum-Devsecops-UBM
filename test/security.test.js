@@ -31,6 +31,18 @@ async function login(username, password) {
   });
 }
 
+test('response tidak mengungkap framework melalui X-Powered-By', async () => {
+  const res = await fetch(`${base}/health`);
+
+  assert.strictEqual(res.headers.get('x-powered-by'), null);
+});
+
+test('response mencegah MIME sniffing', async () => {
+  const res = await fetch(`${base}/health`);
+
+  assert.strictEqual(res.headers.get('x-content-type-options'), 'nosniff');
+});
+
 test('user tidak dapat transfer dari akun milik pengguna lain', async () => {
   const loginRes = await login('budi', 'budi123');
   const { token } = await loginRes.json();

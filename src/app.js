@@ -19,6 +19,13 @@ async function createApp() {
 
   let settings = _.cloneDeep(config.defaultSettings);
 
+  app.disable('x-powered-by');
+
+  app.use((req, res, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    next();
+  });
+
   app.use(express.json());
 
   // Middleware autentikasi JWT
